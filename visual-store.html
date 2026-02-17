@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Premium Visual Store - DrxTuning</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+</head>
+<body style="background-image: var(--bg-store);">
+
+<header class="hero">
+  <h1 id="logoText">Premium Visual Store</h1>
+  <p class="subtitle">Ultra-detailed AI renders & wallpapers</p>
+</header>
+
+<main class="gallery">
+
+  <div class="card gallery-scroll">
+    <h3>Wallpapers 4K</h3>
+    <p>High-resolution AI-generated images</p>
+    <div class="scroll-container">
+      <img src="images/sample1.jpg" alt="Sample 1" onclick="openModal('images/sample1.jpg')">
+      <img src="images/sample2.jpg" alt="Sample 2" onclick="openModal('images/sample2.jpg')">
+    </div>
+  </div>
+
+  <div class="card" onclick="openModal('images/sample3.jpg')">
+    <h3>Exclusive Pack</h3>
+    <p>Collection with watermark preview</p>
+  </div>
+
+</main>
+
+<div id="modal" class="modal">
+  <span class="close" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="modalImg">
+  <div id="caption"></div>
+  <div class="modal-nav">
+    <button id="prevBtn">&lt;</button>
+    <button id="nextBtn">&gt;</button>
+  </div>
+</div>
+
+<footer>
+  <img src="logo.png" alt="DrxTuning Logo">
+  <p>&copy; 2026 DrxTuning | <a href="terms.html">Terms</a> | <a href="about.html">About</a> | <a href="use.html">Use</a></p>
+</footer>
+
+<script src="main.js"></script>
+<script>
+// Modal JS
+let modal = document.getElementById("modal");
+let modalImg = document.getElementById("modalImg");
+let currentIndex = 0;
+const galleryImages = Array.from(document.querySelectorAll(".scroll-container img"));
+
+function openModal(src){
+  modal.style.display = "block";
+  modalImg.src = src;
+  currentIndex = galleryImages.findIndex(img => img.src.includes(src));
+}
+
+function closeModal(){
+  modal.style.display = "none";
+}
+
+document.getElementById("prevBtn").onclick = () => {
+  currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+  modalImg.src = galleryImages[currentIndex].src;
+}
+
+document.getElementById("nextBtn").onclick = () => {
+  currentIndex = (currentIndex + 1) % galleryImages.length;
+  modalImg.src = galleryImages[currentIndex].src;
+}
+</script>
+</body>
+</html>
