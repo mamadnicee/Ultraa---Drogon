@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Premium Visual Store - DrxTuning</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+</head>
+<body style="background-image: var(--bg-store);">
+
+<header class="hero">
+  <h1 id="logoText">Premium Visual Store</h1>
+  <p class="subtitle">Ultra-detailed AI renders & wallpapers</p>
+</header>
+
+<main class="gallery">
+
+  <!-- Wallpapers 4K: فقط اسکرول، کلیک باز نمی‌کنه -->
+  <div class="card gallery-scroll">
+    <h3>Wallpapers 4K</h3>
+    <p>High-resolution AI-generated images</p>
+    <div class="scroll-container">
+      <img src="images/sample1.jpg" alt="Sample 1">
+      <img src="images/sample2.jpg" alt="Sample 2">
+      <img src="images/sample3.jpg" alt="Sample 3">
+      <img src="images/sample4.jpg" alt="Sample 4">
+    </div>
+  </div>
+
+  <!-- Exclusive Pack: صفحه جدید باز می‌کنه -->
+  <div class="card" onclick="location.href='exclusive-pack.html'">
+    <h3>Exclusive Pack</h3>
+    <p>Collection with watermark preview</p>
+  </div>
+
+</main>
+
+<footer>
+  <img src="logo.png" alt="DrxTuning Logo">
+  <p>&copy; 2026 DrxTuning | <a href="terms.html">Terms</a> | <a href="about.html">About</a> | <a href="use.html">Use</a></p>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
