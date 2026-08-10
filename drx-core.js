@@ -1,0 +1,407 @@
+(() => {
+  const container = document.getElementById("drx-core");
+
+  if (!container || typeof THREE === "undefined") return;
+
+  // =========================
+  // SCENE
+  // =========================
+
+  const scene = new THREE.Scene();
+
+  const camera = new THREE.PerspectiveCamera(
+    42,
+    container.clientWidth / container.clientHeight,
+    0.1,
+    100
+  );
+
+  camera.position.set(0, 0.2, 7);
+
+  const renderer = new THREE.WebGLRenderer({
+    antialias: true,
+    alpha: true
+  });
+
+  renderer.setPixelRatio(
+    Math.min(window.devicePixelRatio, 2)
+  );
+
+  renderer.setSize(
+    container.clientWidth,
+    container.clientHeight
+  );
+
+  renderer.outputEncoding = THREE.sRGBEncoding;
+
+  renderer.domElement.style.position = "absolute";
+  renderer.domElement.style.inset = "0";
+  renderer.domElement.style.width = "100%";
+  renderer.domElement.style.height = "100%";
+  renderer.domElement.style.zIndex = "1";
+  renderer.domElement.style.pointerEvents = "auto";
+
+  container.prepend(renderer.domElement);
+
+  // =========================
+  // LIGHTING
+  // =========================
+
+  scene.add(
+    new THREE.AmbientLight(0xffffff, 1.2)
+  );
+
+  const cyanLight = new THREE.PointLight(
+    0x00e0ff,
+    5,
+    12
+  );
+
+  cyanLight.position.set(3, 2, 4);
+  scene.add(cyanLight);
+
+  const pinkLight = new THREE.PointLight(
+    0xff00aa,
+    4,
+    10
+  );
+
+  pinkLight.position.set(-3, -1, 3);
+  scene.add(pinkLight);
+
+  const orangeLight = new THREE.PointLight(
+    0xff6a00,
+    3,
+    9
+  );
+
+  orangeLight.position.set(0, -3, 2);
+  scene.add(orangeLight);
+
+  // =========================
+  // MODEL
+  // =========================
+
+  const loader = new THREE.GLTFLoader();
+
+  let model = null;
+
+  loader.load(
+    "models/drx-core.glb",
+
+    (gltf) => {
+
+      model = gltf.scene;
+
+      model.traverse((object) => {
+
+        if (!object.isMesh) return;
+
+        object.castShadow = true;
+        object.receiveShadow = true;
+
+        if (object.material) {
+
+          object.material.metalness =
+            object.material.metalness ?? 0.75;
+
+          object.material.roughness =
+            object.material.roughness ?? 0.25;
+        }
+      });
+
+      // =========================
+      // AUTO SCALE
+      // =========================
+
+      const box =
+        new THREE.Box3().setFromObject(model);
+
+      const size = new THREE.Vector3();
+
+      box.getSize(size);
+
+      const maxSize =
+        Math.max(
+          size.x,
+          size.y,
+          size.z
+        );
+
+      const scale =
+        3.1 / maxSize;
+
+      model.scale.setScalar(scale);
+
+      // Center model
+
+      const center =
+        new THREE.Vector3();
+
+      box.getCenter(center);
+
+      model.position.sub(
+        center.multiplyScalar(scale)
+      );
+
+      model.position.y = 0;
+
+      scene.add(model);
+    },
+
+    undefined,
+
+    (error) => {
+      console.error(
+        "DRX CORE MODEL ERROR:",
+        error
+      );
+    }
+  );
+
+  // =========================
+  // GALAXY PARTICLES
+  // =========================
+
+  const particleCount = 900;
+
+  const positions =
+    new Float32Array(
+      particleCount * 3
+    );
+
+  for (let i = 0; i < particleCount; i++) {
+
+    const radius =
+      2.8 + Math.random() * 5;
+
+    const angle =
+      Math.random() * Math.PI * 2;
+
+    const spread =
+      (Math.random() - 0.5) * 1.8;
+
+    positions[i * 3] =
+      Math.cos(angle) * radius;
+
+    positions[i * 3 + 1] =
+      spread;
+
+    positions[i * 3 + 2] =
+      Math.sin(angle) * radius;
+  }
+
+  const particleGeometry =
+    new THREE.BufferGeometry();
+
+  particleGeometry.setAttribute(
+    "position",
+    new THREE.BufferAttribute(
+      positions,
+      3
+    )
+  );
+
+  const particleMaterial =
+    new THREE.PointsMaterial({
+      color: 0x9eeaff,
+      size: 0.025,
+      transparent: true,
+      opacity: 0.8,
+      depthWrite: false
+    });
+
+  const galaxy =
+    new THREE.Points(
+      particleGeometry,
+      particleMaterial
+    );
+
+  scene.add(galaxy);
+
+  // =========================
+  // MOUSE / TOUCH
+  // =========================
+
+  let targetX = 0;
+  let targetY = 0;
+
+  container.addEventListener(
+    "pointermove",
+    (event) => {
+
+      const rect =
+        container.getBoundingClientRect();
+
+      targetX =
+        ((event.clientX - rect.left) /
+          rect.width - 0.5) * 2;
+
+      targetY =
+        ((event.clientY - rect.top) /
+          rect.height - 0.5) * 2;
+    }
+  );
+
+  // =========================
+  // BUTTONS
+  // =========================
+
+  const buttons =
+    document.querySelectorAll(
+      "[data-core-target]"
+    );
+
+  buttons.forEach((button) => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        const mode =
+          button.dataset.coreTarget;
+
+        activateMode(mode);
+      }
+    );
+  });
+
+  function activateMode(mode) {
+
+    if (mode === "gpu") {
+
+      cyanLight.intensity = 7;
+      pinkLight.intensity = 1.5;
+
+      galaxy.material.color.set(
+        0x00e0ff
+      );
+    }
+
+    if (mode === "ai") {
+
+      cyanLight.intensity = 2;
+      pinkLight.intensity = 7;
+
+      galaxy.material.color.set(
+        0xff4fd8
+      );
+    }
+
+    if (mode === "formula") {
+
+      cyanLight.intensity = 2;
+      orangeLight.intensity = 7;
+
+      galaxy.material.color.set(
+        0xff8a00
+      );
+    }
+
+    if (mode === "visuals") {
+
+      cyanLight.intensity = 5;
+      pinkLight.intensity = 5;
+      orangeLight.intensity = 4;
+
+      galaxy.material.color.set(
+        0xffffff
+      );
+    }
+  }
+
+  // =========================
+  // RESIZE
+  // =========================
+
+  function resize() {
+
+    const width =
+      container.clientWidth;
+
+    const height =
+      container.clientHeight;
+
+    if (!width || !height) return;
+
+    camera.aspect =
+      width / height;
+
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(
+      width,
+      height
+    );
+  }
+
+  window.addEventListener(
+    "resize",
+    resize
+  );
+
+  resize();
+
+  // =========================
+  // ANIMATION
+  // =========================
+
+  const clock =
+    new THREE.Clock();
+
+  function animate() {
+
+    requestAnimationFrame(
+      animate
+    );
+
+    const time =
+      clock.getElapsedTime();
+
+    if (model) {
+
+      model.rotation.y =
+        time * 0.18;
+
+      model.rotation.x +=
+        (targetY * 0.12 -
+          model.rotation.x) * 0.025;
+
+      model.rotation.z +=
+        (targetX * 0.08 -
+          model.rotation.z) * 0.025;
+
+      const hover =
+        Math.sin(time * 1.3) * 0.08;
+
+      model.position.y =
+        hover;
+    }
+
+    galaxy.rotation.y =
+      time * 0.025;
+
+    galaxy.rotation.z =
+      time * 0.008;
+
+    cyanLight.position.x =
+      Math.sin(time * 0.7) * 4;
+
+    cyanLight.position.y =
+      Math.cos(time * 0.5) * 2;
+
+    pinkLight.position.x =
+      Math.cos(time * 0.6) * 4;
+
+    pinkLight.position.y =
+      Math.sin(time * 0.8) * 2;
+
+    renderer.render(
+      scene,
+      camera
+    );
+  }
+
+  animate();
+
+})();
