@@ -1,0 +1,1434 @@
+/* =========================================================
+   DrxTuning — FINAL STYLE SYSTEM
+   Premium AI Visuals & Performance
+========================================================= */
+
+/* =========================================================
+   01 — ROOT / VARIABLES
+========================================================= */
+
+:root {
+
+  --bg-home:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(255, 0, 170, 0.08),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 10% 40%,
+      rgba(0, 224, 255, 0.06),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 90% 70%,
+      rgba(255, 106, 0, 0.06),
+      transparent 30%
+    ),
+    #050507;
+
+  --bg-main: #050507;
+  --bg-card: rgba(255,255,255,0.04);
+  --bg-card-soft: rgba(255,255,255,0.02);
+
+  --text-main: #ffffff;
+  --text-soft: rgba(255,255,255,0.85);
+  --text-muted: rgba(255,255,255,0.60);
+
+  --orange: #ff6a00;
+  --pink: #ff00aa;
+  --cyan: #00e0ff;
+  --red: #ff2d55;
+  --gray: #8a8f98;
+
+  --border:
+    1px solid rgba(255,255,255,0.12);
+
+  --border-soft:
+    1px solid rgba(255,255,255,0.08);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+
+  --glass:
+    blur(18px);
+
+  --gradient:
+    linear-gradient(
+      90deg,
+      var(--orange),
+      var(--pink),
+      var(--cyan),
+      var(--orange)
+    );
+
+  --shadow-orange:
+    0 0 18px rgba(255,106,0,0.25);
+
+  --shadow-pink:
+    0 0 18px rgba(255,0,170,0.25);
+
+  --shadow-cyan:
+    0 0 18px rgba(0,224,255,0.25);
+
+  --transition:
+    all 0.25s ease;
+}
+
+
+/* =========================================================
+   02 — GLOBAL RESET
+========================================================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+
+  min-height: 100vh;
+
+  background:
+    var(--bg-home);
+
+  background-attachment: fixed;
+
+  color:
+    var(--text-main);
+
+  font-family:
+    'Orbitron',
+    sans-serif;
+
+  overflow-x: hidden;
+
+  line-height: 1.6;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+button {
+  font-family: inherit;
+}
+
+p {
+  color: var(--text-soft);
+}
+
+
+/* =========================================================
+   03 — HERO
+========================================================= */
+
+.hero {
+
+  width: 100%;
+
+  padding:
+    55px
+    20px
+    25px;
+
+  text-align: center;
+
+  position: relative;
+}
+
+#logoText {
+
+  font-size:
+    clamp(2.2rem, 8vw, 5rem);
+
+  font-weight: 800;
+
+  letter-spacing:
+    4px;
+
+  background:
+    var(--gradient);
+
+  background-size:
+    300% 100%;
+
+  -webkit-background-clip:
+    text;
+
+  background-clip:
+    text;
+
+  -webkit-text-fill-color:
+    transparent;
+
+  animation:
+    logoGradient 5s linear infinite;
+
+  text-shadow:
+    0 0 30px rgba(255,0,170,0.15);
+}
+
+.subtitle {
+
+  margin-top:
+    8px;
+
+  font-size:
+    clamp(0.65rem, 2vw, 0.9rem);
+
+  letter-spacing:
+    2px;
+
+  color:
+    var(--text-muted);
+}
+
+
+/* =========================================================
+   04 — DRX INTERACTIVE CORE
+========================================================= */
+
+#drx-core-section {
+
+  width: 100%;
+
+  position: relative;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  margin:
+    10px auto
+    20px;
+
+  padding:
+    0 15px;
+}
+
+#drx-core {
+
+  width: 100%;
+
+  max-width:
+    1000px;
+
+  min-height:
+    300px;
+
+  position: relative;
+
+  overflow: hidden;
+
+  border-radius:
+    var(--radius-xl);
+
+  background:
+    rgba(255,255,255,0.015);
+
+  border:
+    var(--border-soft);
+
+  box-shadow:
+    0 0 40px rgba(0,224,255,0.04);
+}
+
+#drx-core canvas {
+
+  width: 100% !important;
+  height: 100% !important;
+
+  display: block;
+}
+
+.drx-core-hint {
+
+  margin-top:
+    8px;
+
+  font-size:
+    0.55rem;
+
+  letter-spacing:
+    3px;
+
+  color:
+    var(--text-muted);
+
+  opacity:
+    0.7;
+}
+
+
+/* =========================================================
+   05 — MAIN GALLERY
+========================================================= */
+
+.gallery {
+
+  width: 100%;
+
+  max-width:
+    1100px;
+
+  margin:
+    0 auto;
+
+  padding:
+    20px;
+
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap:
+    18px;
+}
+
+
+/* =========================================================
+   06 — FLIP CARDS
+========================================================= */
+
+.card-flip {
+
+  width: 100%;
+
+  min-height:
+    190px;
+
+  perspective:
+    1000px;
+
+  cursor:
+    pointer;
+}
+
+.card-inner {
+
+  width: 100%;
+  height: 100%;
+
+  min-height:
+    190px;
+
+  position: relative;
+
+  transform-style:
+    preserve-3d;
+
+  transition:
+    transform 0.7s
+    cubic-bezier(.2,.7,.2,1);
+}
+
+.card-flip.flipped
+.card-inner {
+
+  transform:
+    rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  min-height:
+    190px;
+
+  padding:
+    25px;
+
+  border-radius:
+    var(--radius-lg);
+
+  background:
+    var(--bg-card);
+
+  backdrop-filter:
+    var(--glass);
+
+  -webkit-backdrop-filter:
+    var(--glass);
+
+  border:
+    var(--border);
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  justify-content:
+    center;
+
+  align-items:
+    center;
+
+  text-align:
+    center;
+
+  backface-visibility:
+    hidden;
+
+  -webkit-backface-visibility:
+    hidden;
+}
+
+.card-front {
+
+  box-shadow:
+    0 0 25px rgba(0,224,255,0.03);
+}
+
+.card-front h3,
+.card-back h3 {
+
+  font-size:
+    clamp(0.8rem, 2vw, 1rem);
+
+  letter-spacing:
+    1px;
+
+  margin-bottom:
+    10px;
+}
+
+.card-front p,
+.card-back p {
+
+  font-size:
+    0.7rem;
+
+  line-height:
+    1.7;
+
+  color:
+    var(--text-muted);
+}
+
+.card-back {
+
+  transform:
+    rotateY(180deg);
+
+  background:
+    rgba(8,8,12,0.92);
+}
+
+.card-back h3 {
+  color:
+    var(--cyan);
+}
+
+.gradient-text {
+
+  background:
+    var(--gradient);
+
+  background-size:
+    300% 100%;
+
+  -webkit-background-clip:
+    text;
+
+  background-clip:
+    text;
+
+  -webkit-text-fill-color:
+    transparent;
+
+  animation:
+    vaultGradient 4s linear infinite;
+}
+
+
+/* =========================================================
+   07 — NEON VAULT
+========================================================= */
+
+#neon-vault-anchor {
+
+  width: 100%;
+
+  margin-top:
+    -4px;
+
+  padding:
+    0 15px;
+}
+
+#neon-vault-anchor > div {
+
+  display: flex;
+
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: 15px;
+
+  padding:
+    6px
+    20px
+    20px;
+
+  margin:
+    -8px
+    0
+    20px;
+
+  background:
+    transparent;
+}
+
+#neon-vault-wrapper {
+
+  width: 100%;
+
+  max-width:
+    1000px;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  align-items:
+    center;
+
+  padding:
+    20px;
+
+  background:
+    rgba(255,255,255,0.04);
+
+  backdrop-filter:
+    blur(18px);
+
+  -webkit-backdrop-filter:
+    blur(18px);
+
+  border:
+    var(--border);
+
+  border-radius:
+    var(--radius-xl);
+}
+
+.neon-header {
+
+  width: 100%;
+
+  display:
+    flex;
+
+  justify-content:
+    space-between;
+
+  align-items:
+    center;
+
+  gap:
+    15px;
+
+  margin-bottom:
+    15px;
+}
+
+.neon-header h2 {
+
+  font-size:
+    1.1rem;
+
+  color:
+    #fff;
+}
+
+.neon-btn {
+
+  border:
+    none;
+
+  border-radius:
+    var(--radius-sm);
+
+  padding:
+    7px 12px;
+
+  color:
+    #fff;
+
+  cursor:
+    pointer;
+
+  background:
+    var(--gradient);
+
+  background-size:
+    300% 100%;
+
+  transition:
+    var(--transition);
+
+  animation:
+    buttonGradient 5s linear infinite;
+}
+
+.neon-btn:hover {
+
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    var(--shadow-pink);
+}
+
+/* =========================================================
+   07 — NEON VAULT
+========================================================= */
+
+#neon-vault-anchor {
+  ...
+}
+
+#neon-vault-anchor > div {
+  ...
+}
+
+#neon-vault-wrapper {
+  ...
+}
+
+.neon-header {
+  ...
+}
+
+.neon-header h2 {
+  ...
+}
+
+.neon-btn {
+  ...
+}
+
+.neon-btn:hover {
+  ...
+}
+
+
+/* =========================
+   VAULT STREAM
+========================= */
+
+.vault-stream {
+  ...
+}
+
+.vault-track {
+  ...
+}
+
+.vault-track::-webkit-scrollbar {
+  ...
+}
+
+.vault-item {
+  ...
+}
+
+.vault-item img {
+  ...
+}
+
+.vault-item.active {
+  ...
+}
+
+/* =========================================================
+   08 — NEXUS
+========================================================= */
+.
+/* =========================================================
+   09 — SDXL ANALYSIS
+========================================================= */
+
+
+/* =========================================================
+   10 — RTX FAN
+========================================================= */
+
+.rtx-fan {
+
+  width: 100%;
+
+  display:
+    flex;
+
+  justify-content:
+    center;
+
+  margin:
+    0;
+}
+
+
+/* =========================================================
+   11 — PERFORMANCE GRAPHS
+========================================================= */
+
+.performance-graph {
+
+  width:
+    400px;
+
+  max-width:
+    100%;
+
+  margin:
+    0 auto;
+}
+
+.performance-graph svg {
+
+  display:
+    block;
+
+  width:
+    100%;
+
+  height:
+    auto;
+}
+
+
+/* =========================================================
+   12 — PERFORMANCE INSIGHT
+========================================================= */
+
+.performance-insight {
+
+  width:
+    400px;
+
+  max-width:
+    100%;
+
+  margin:
+    14px auto 0;
+
+  padding:
+    12px 14px;
+
+  border:
+    var(--border-soft);
+
+  border-radius:
+    var(--radius-sm);
+
+  background:
+    rgba(255,255,255,0.02);
+
+  backdrop-filter:
+    blur(4px);
+
+  -webkit-backdrop-filter:
+    blur(4px);
+
+  font-size:
+    9.5px;
+
+  line-height:
+    1.6;
+
+  color:
+    #fff;
+}
+
+.performance-insight-title {
+
+  font-size:
+    10px;
+
+  letter-spacing:
+    0.4px;
+
+  margin-bottom:
+    6px;
+
+  opacity:
+    0.8;
+}
+
+.performance-insight div {
+
+  opacity:
+    0.85;
+}
+
+.performance-insight div:last-child {
+
+  opacity:
+    0.75;
+}
+
+
+/* =========================================================
+   13 — PERFORMANCE CARDS
+========================================================= */
+
+.performance-wrapper {
+
+  width:
+    100%;
+
+  display:
+    flex;
+
+  justify-content:
+    center;
+
+  margin-top:
+    20px;
+}
+
+.performance-container {
+
+  width:
+    400px;
+
+  max-width:
+    100%;
+
+  text-align:
+    center;
+}
+
+.performance-cards {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap:
+    12px;
+}
+
+.performance-card {
+
+  padding:
+    12px 8px;
+
+  border:
+    var(--border-soft);
+
+  border-radius:
+    8px;
+
+  background:
+    rgba(255,255,255,0.02);
+
+  transition:
+    var(--transition);
+}
+
+.performance-card:hover {
+
+  border-color:
+    rgba(255,255,255,0.35);
+
+  box-shadow:
+    0 0 12px rgba(255,255,255,0.08);
+
+  transform:
+    translateY(-2px);
+}
+
+.performance-label {
+
+  font-size:
+    9px;
+
+  opacity:
+    0.65;
+
+  letter-spacing:
+    0.4px;
+}
+
+.performance-value {
+
+  font-size:
+    14px;
+
+  margin-top:
+    5px;
+}
+
+.performance-analysis {
+
+  margin-top:
+    20px;
+
+  padding:
+    12px 14px;
+
+  border:
+    var(--border-soft);
+
+  border-radius:
+    8px;
+
+  background:
+    rgba(255,255,255,0.02);
+
+  backdrop-filter:
+    blur(4px);
+
+  -webkit-backdrop-filter:
+    blur(4px);
+
+  font-size:
+    10px;
+
+  line-height:
+    1.6;
+
+  opacity:
+    0.85;
+}
+
+
+/* =========================================================
+   14 — SDXL ADVANCED CARDS
+========================================================= */
+
+.sdxl-advanced {
+
+  width:
+    100%;
+
+  display:
+    flex;
+
+  gap:
+    20px;
+
+  flex-wrap:
+    wrap;
+
+  margin-top:
+    -10px;
+}
+
+.sdxl-card {
+
+  flex:
+    1 1 280px;
+
+  min-width:
+    260px;
+
+  padding:
+    20px;
+
+  background:
+    rgba(255,255,255,0.04);
+
+  backdrop-filter:
+    blur(18px);
+
+  -webkit-backdrop-filter:
+    blur(18px);
+
+  border-radius:
+    var(--radius-lg);
+
+  border:
+    var(--border-soft);
+
+  color:
+    var(--text-soft);
+
+  font-size:
+    0.75rem;
+
+  line-height:
+    1.8;
+}
+
+.sdxl-title {
+
+  margin:
+    0 0 12px;
+
+  font-size:
+    0.9rem;
+
+  letter-spacing:
+    0.5px;
+}
+
+
+/* =========================================================
+   15 — SDXL GRADIENT TITLES
+========================================================= */
+
+.sdxl-gradient-1 {
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--orange),
+      var(--pink)
+    );
+
+  -webkit-background-clip:
+    text;
+
+  background-clip:
+    text;
+
+  -webkit-text-fill-color:
+    transparent;
+}
+
+.sdxl-gradient-2 {
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--pink),
+      var(--cyan)
+    );
+
+  -webkit-background-clip:
+    text;
+
+  background-clip:
+    text;
+
+  -webkit-text-fill-color:
+    transparent;
+}
+
+.sdxl-gradient-3 {
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--cyan),
+      var(--orange)
+    );
+
+  -webkit-background-clip:
+    text;
+
+  background-clip:
+    text;
+
+  -webkit-text-fill-color:
+    transparent;
+}
+
+
+/* =========================================================
+   16 — SDXL TABLE
+========================================================= */
+
+.sdxl-table {
+
+  width:
+    100%;
+
+  border-collapse:
+    separate;
+
+  border-spacing:
+    0;
+
+  overflow:
+    hidden;
+
+  border-radius:
+    10px;
+
+  border:
+    var(--border-soft);
+
+  background:
+    rgba(0,0,0,0.15);
+
+  font-size:
+    0.68rem;
+}
+
+.sdxl-table th,
+.sdxl-table td {
+
+  padding:
+    10px 8px;
+
+  text-align:
+    center;
+
+  border-bottom:
+    1px solid rgba(255,255,255,0.07);
+}
+
+.sdxl-table th {
+
+  color:
+    #fff;
+
+  background:
+    rgba(255,255,255,0.05);
+}
+
+.sdxl-table td {
+
+  color:
+    var(--text-soft);
+}
+
+.sdxl-table tr:last-child td {
+
+  border-bottom:
+    none;
+}
+
+.sdxl-table tr:hover td {
+
+  background:
+    rgba(255,255,255,0.04);
+}
+
+
+/* =========================================================
+   17 — SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+
+  width:
+    7px;
+
+  height:
+    7px;
+}
+
+::-webkit-scrollbar-track {
+
+  background:
+    #050507;
+}
+
+::-webkit-scrollbar-thumb {
+
+  background:
+    linear-gradient(
+      var(--orange),
+      var(--pink),
+      var(--cyan)
+    );
+
+  border-radius:
+    10px;
+}
+
+
+/* =========================================================
+   18 — ANIMATIONS
+========================================================= */
+
+@keyframes logoGradient {
+
+  0% {
+    background-position:
+      0% 50%;
+  }
+
+  100% {
+    background-position:
+      300% 50%;
+  }
+}
+
+@keyframes vaultGradient {
+
+  0% {
+    background-position:
+      0% 50%;
+  }
+
+  100% {
+    background-position:
+      300% 50%;
+  }
+}
+
+@keyframes buttonGradient {
+
+  0% {
+    background-position:
+      0% 50%;
+  }
+
+  100% {
+    background-position:
+      300% 50%;
+  }
+}
+
+
+/* =========================================================
+   19 — MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .hero {
+
+    padding:
+      35px
+      15px
+      15px;
+  }
+
+  #logoText {
+
+    letter-spacing:
+      2px;
+  }
+
+  #drx-core {
+
+    min-height:
+      260px;
+  }
+
+  .gallery {
+
+    grid-template-columns:
+      1fr;
+
+    padding:
+      15px;
+
+    gap:
+      14px;
+  }
+
+  .card-front,
+  .card-back {
+
+    min-height:
+      175px;
+
+    padding:
+      20px;
+  }
+
+  #neon-vault-wrapper {
+
+    padding:
+      15px;
+  }
+
+  .neon-header {
+
+    align-items:
+      flex-start;
+
+    flex-direction:
+      column;
+  }
+
+  .neon-btn {
+
+    width:
+      100%;
+  }
+
+  .capsule-row {
+
+    justify-content:
+      flex-start;
+  }
+
+  .nexus-content {
+
+    padding:
+      0 10px;
+
+    gap:
+      12px;
+  }
+
+  .nexus-block {
+
+    min-width:
+      100%;
+
+    padding:
+      16px;
+  }
+
+  #sdxl-analysis-anchor {
+
+    padding:
+      0 10px;
+  }
+
+  .sdxl-intro {
+
+    padding:
+      16px;
+
+    font-size:
+      0.72rem;
+  }
+
+  .sdxl-card {
+
+    min-width:
+      100%;
+
+    padding:
+      16px;
+  }
+
+  .performance-cards {
+
+    gap:
+      7px;
+  }
+
+  .performance-card {
+
+    padding:
+      10px 5px;
+  }
+
+  .performance-value {
+
+    font-size:
+      12px;
+  }
+}
+
+
+/* =========================================================
+   20 — SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+  .hero {
+
+    padding-top:
+      25px;
+  }
+
+  #logoText {
+
+    font-size:
+      2rem;
+
+    letter-spacing:
+      1px;
+  }
+
+  .subtitle {
+
+    font-size:
+      0.58rem;
+
+    letter-spacing:
+      1px;
+  }
+
+  #drx-core {
+
+    min-height:
+      220px;
+  }
+
+  .card-front h3,
+  .card-back h3 {
+
+    font-size:
+      0.72rem;
+  }
+
+  .card-front p,
+  .card-back p {
+
+    font-size:
+      0.62rem;
+  }
+
+  .capsule {
+
+    width:
+      105px;
+
+    height:
+      70px;
+  }
+
+  .performance-label {
+
+    font-size:
+      8px;
+  }
+
+  .performance-value {
+
+    font-size:
+      11px;
+  }
+
+  .sdxl-table {
+
+    font-size:
+      0.58rem;
+  }
+
+  .sdxl-table th,
+  .sdxl-table td {
+
+    padding:
+      8px 4px;
+  }
+}
+
+
+/* =========================================================
+   END — DrxTuning FINAL CSS
+========================================================= */
